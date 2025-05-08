@@ -15,31 +15,16 @@ function index(req, res) {
 
 //show
 function show(req, res) {
-    // let tags = req.query.tags;
-    // let id = parseInt(req.params.id);
-    // // console.log(tags);
-    // let post = posts.find(post => id === post.id);
+    
+    const {id} = req.params;
 
-    // console.log(post);
-    // if (!post) {
-    //     res.status(404);
-    //     res.json({
-    //         status: 404,
-    //         error: "Not Found",
-    //         message: "ID dolce non trovato"
-    //     });
-    // } else {
-    //     if(post.tags.includes(tags)){
-    //         res.json(post);
-    //     }else{
-    //         res.status(404);
-    //         res.json({
-    //             status: 404,
-    //             error: "Not Found",
-    //             message: "Tags del dolce non trovato"
-    //         });
-    //     }
-    // }
+    const sql = 'SELECT * FROM posts WHERE id = ?';
+
+    connection.query(sql, [id], (err, result) => {
+        if (err) return res.status(500).json({error: 'Database query failed'});
+        if (result.length === 0) return res.status(404).json({ error: `Post with id:${id}, don't found` })
+        res.json(result[0]);
+    })
 
 }
 
