@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 let port = 3002;
-const posts = require('./data/posts.js');
+
 const errorsHandler = require('./middlewares/errorsHandler.js');
 const notFound = require('./middlewares/notFound.js');
 
