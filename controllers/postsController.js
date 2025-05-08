@@ -10,27 +10,6 @@ function index(req, res) {
         if (err) return res.status(500).json({error: 'Database query failed'});
         res.json(results);
     });
-    // pippo.get();
-    // let filterPosts = posts;
-    // let filterPostsIndex;
-    // if (req.query.tags) {
-    //     filterPostsIndex = posts.findIndex(post => post.tags.includes(req.query.tags));
-
-    //     if (filterPostsIndex < 0) {
-    //         res.status(404);
-    //         res.json({
-    //             status: 404,
-    //             error: "Not Found",
-    //             message: "Dolce non trovato"
-    //         });
-    //         return;
-    //     } else {
-    //         filterPosts = posts.filter(post => post.tags.includes(req.query.tags));
-    //         res.json(filterPosts);
-    //     }
-    // } else {
-    //     res.json(filterPosts);
-    // }
 
 }
 
@@ -115,40 +94,16 @@ function modify(req, res) {
 
 //destroy
 function destroy(req, res) {
-    // let tags = req.query.tags;
-    // let id = parseInt(req.params.id);
-    // console.log(tags);
-    // let post = posts.find(post => id === post.id);
-    // let postIndex = posts.findIndex(post => id === post.id);
-    // console.log(postIndex);
-    // console.log(post);
-    // if (!post) {
-    //     res.status(404);
-    //     res.json({
-    //         status: 404,
-    //         error: "Not Found",
-    //         message: "ID dolce non trovato"
-    //     });
-    // } else {
-    //     if(post.tags.includes(tags)){
-    //         posts.splice(postIndex, 1);
-    //         console.log(`Post con ID ${post.id} è stato eliminato!`);
-            
-    //         return res.status(204).json({
-    //             status: 204,
-    //             error: "Eliminato post",
-    //             message: "Tags del dolce trovato, post eliminato!"
-    //         });
-    //     }else{
-    //         res.status(404);
-    //         res.json({
-    //             status: 404,
-    //             error: "Not Found",
-    //             message: "Tags del dolce non trovato!"
-    //         });
 
-    //     }
-    // }
+    const {id} = req.params;
+
+    const sql = 'DELETE FROM posts WHERE id = ?';
+
+    connection.query(sql, [id], (err) => {
+        if (err) return res.status(500).json({ error: 'Failed to delete post'});
+        res.sendStatus(204);
+    });
+
     
 }
 
