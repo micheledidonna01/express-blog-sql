@@ -1,11 +1,13 @@
-
+// Importiamo il file di connessione al database
 const connection = require('../data/db.js');
 
 //index
 function index(req, res) {
 
+    //prepariamo la query
     const sql = 'SELECT * FROM posts';
 
+    //eseguiamo la query
     connection.query(sql, (err, results) => {
         if (err) return res.status(500).json({error: 'Database query failed'});
         res.json(results);
@@ -15,7 +17,7 @@ function index(req, res) {
 
 //show
 function show(req, res) {
-    
+    // recuperiamo l'id dall' URL
     const {id} = req.params;
 
     const postsSql = `SELECT * FROM posts WHERE id = ?`;
